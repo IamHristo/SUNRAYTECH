@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunrayTech.Web", "SunrayTech.Web\SunrayTech.Web.csproj", "{A80DFF42-FD8B-4907-A227-3AF20A05C770}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunrayTech.Api", "SunrayTech.Api\SunrayTech.Api.csproj", "{41902978-8B23-4DF0-9945-2ABE01CE364C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A80DFF42-FD8B-4907-A227-3AF20A05C770}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A80DFF42-FD8B-4907-A227-3AF20A05C770}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A80DFF42-FD8B-4907-A227-3AF20A05C770}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A80DFF42-FD8B-4907-A227-3AF20A05C770}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41902978-8B23-4DF0-9945-2ABE01CE364C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41902978-8B23-4DF0-9945-2ABE01CE364C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41902978-8B23-4DF0-9945-2ABE01CE364C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41902978-8B23-4DF0-9945-2ABE01CE364C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0F74C935-6935-4BB7-9A3F-B7D3A878E793}
+	EndGlobalSection
+EndGlobal
