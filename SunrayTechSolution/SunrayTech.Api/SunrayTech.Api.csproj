@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\SunrayTech.Models\SunrayTech.Models.csproj" />
   </ItemGroup>
 
 </Project>

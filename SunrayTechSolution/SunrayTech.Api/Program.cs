@@ -1,5 +1,7 @@
 using SunrayTech.Api.Data;
 using Microsoft.EntityFrameworkCore;
+using SunrayTech.Api.Repositories.Contracts;
+using SunrayTech.Api.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContextPool<SunrayTechDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SunrayTechConnection"))
     );
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 
