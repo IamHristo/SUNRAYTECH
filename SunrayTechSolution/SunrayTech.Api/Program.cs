@@ -2,6 +2,7 @@ using SunrayTech.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using SunrayTech.Api.Repositories.Contracts;
 using SunrayTech.Api.Repositories;
+using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(policy => policy.WithOrigins("http://localhost:7064", "https://localhost:7064")
+.AllowAnyMethod()
+.WithHeaders(HeaderNames.ContentType));
 
 app.UseHttpsRedirection();
 

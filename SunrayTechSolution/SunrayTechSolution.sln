@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SunrayTech.Web", "SunrayTec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SunrayTech.Api", "SunrayTech.Api\SunrayTech.Api.csproj", "{41902978-8B23-4DF0-9945-2ABE01CE364C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunrayTech.Models", "SunrayTech.Models\SunrayTech.Models.csproj", "{B16CBEB5-BCC6-4B9B-BFB8-E1BDBA06CECB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SunrayTech.Models", "SunrayTech.Models\SunrayTech.Models.csproj", "{B16CBEB5-BCC6-4B9B-BFB8-E1BDBA06CECB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

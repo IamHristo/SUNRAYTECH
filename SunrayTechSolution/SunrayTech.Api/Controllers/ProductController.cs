@@ -8,11 +8,11 @@ namespace SunrayTech.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductControllerr : ControllerBase
+    public class ProductController : ControllerBase
     {
         public readonly IProductRepository productRepository;
 
-        public ProductControllerr(IProductRepository productRepository)
+        public ProductController(IProductRepository productRepository)
         {
             this.productRepository = productRepository;
         }
