@@ -16,24 +16,26 @@ namespace SunrayTech.Api.Repositories
 
         public async Task<IEnumerable<ProductCategory>> GetCategories()
         {
-            var categories = await this.sunrayTechDbContext.ProductCategories.ToListAsync();
+            var categories = await sunrayTechDbContext.ProductCategories.ToListAsync();
 
             return categories;
         }
 
         public async Task<ProductCategory> GetCategory(int id)
         {
-            throw new NotImplementedException();
+            var category = await sunrayTechDbContext.ProductCategories.SingleOrDefaultAsync(c => c.Id == id);
+            return category;
         }
 
-        public Task<Product> GetItem(int id)
+        public async Task<Product> GetItem(int id)
         {
-            throw new NotImplementedException();
+            var product = await sunrayTechDbContext.Products.FindAsync(id);
+            return product;
         }
 
         public async Task<IEnumerable<Product>> GetItems()
         {
-            var products = await this.sunrayTechDbContext.Products.ToListAsync();
+            var products = await sunrayTechDbContext.Products.ToListAsync();
 
             return products;
         }

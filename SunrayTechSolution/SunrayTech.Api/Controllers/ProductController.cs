@@ -43,5 +43,30 @@ namespace SunrayTech.Api.Controllers
             }
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<ProductDto>> GetItem(int id)
+        {
+            try
+            {
+                var product = await productRepository.GetItem(id);
+
+                if (product == null)
+                {
+                    return BadRequest();
+                }
+                else
+                {
+                    var productCategory = await productRepository.GetCategory(id);
+
+                    var productDto = product.ConvertToDto(productCategory);
+
+                    return Ok(productDto);
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieveing data from the database");
+            }
+        }
     }
 }
