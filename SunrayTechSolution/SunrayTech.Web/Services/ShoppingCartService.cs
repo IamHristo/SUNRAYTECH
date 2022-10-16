@@ -46,7 +46,7 @@ namespace SunrayTech.Web.Services
         {
             try
             {
-                var response = await httpClient.GetAsync($"api/{userId}/GetItems");
+                var response = await httpClient.GetAsync($"api/ShoppingCart/{userId}/GetItems");
 
                 if (response.IsSuccessStatusCode)
                 {
