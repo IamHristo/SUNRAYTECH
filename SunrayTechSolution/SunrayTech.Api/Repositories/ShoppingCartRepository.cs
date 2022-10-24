@@ -39,9 +39,16 @@ namespace SunrayTech.Api.Repositories
             return null;
         }
 
-        public Task<CartItem> DeleteItem(int id)
+        public async Task<CartItem> DeleteItem(int id)
         {
-            throw new NotImplementedException();
+            var item = await sunrayTechDbContext.CartItems.FindAsync(id);
+
+            if (item != null)
+            {
+                sunrayTechDbContext.CartItems.Remove(item);
+                await sunrayTechDbContext.SaveChangesAsync();
+            }
+            return item;
         }
 
         public async Task<CartItem> GetItem(int id)

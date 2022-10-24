@@ -4,12 +4,15 @@ using SunrayTech.Web.Services.Contracts;
 
 namespace SunrayTech.Web.Pages
 {
-    public partial class ShoppingCart:ComponentBase
+    public partial class ShoppingCart : ComponentBase
     {
         [Inject]
-        public IShoppingCartService ShoppingCartService{ get; set; }
+        public IShoppingCartService ShoppingCartService { get; set; }
 
-        public IEnumerable<CartItemDto> ShoppingCartItems { get; set; }
+        public List<CartItemDto> ShoppingCartItems { get; set; }
+
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
 
         public string ErrorMessage { get; set; }
 
@@ -23,6 +26,33 @@ namespace SunrayTech.Web.Pages
             {
                 ErrorMessage = ex.Message;
             }
+        }
+
+        protected async Task RemoveFromCart_Click(int id)
+        {
+            try
+            {
+                var cartItemDto = await ShoppingCartService.DeleteItem(id);
+
+                RemoveCartItem(id);
+            }
+            catch (Exception)
+            {
+                //Log exception
+
+            }
+        }
+
+        private CartItemDto GetCartItem(int id)
+        {
+            return ShoppingCartItems.FirstOrDefault(i => i.Id == id);
+        }
+
+        private void RemoveCartItem(int id)
+        {
+            var cartItemDto = GetCartItem(id);
+
+            ShoppingCartItems.Remove(cartItemDto);
         }
     }
 }
