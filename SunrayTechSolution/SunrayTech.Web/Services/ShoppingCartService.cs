@@ -1,7 +1,10 @@
-﻿using SunrayTech.Models.Dtos;
+﻿using Newtonsoft.Json;
+using SunrayTech.Models.Dtos;
 using SunrayTech.Web.Services.Contracts;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json.Serialization;
 
 namespace SunrayTech.Web.Services
 {
@@ -88,5 +91,27 @@ namespace SunrayTech.Web.Services
             }
         }
 
+        public async Task<CartItemDto> UpdateQty(CartItemQtyUpdateDto cartItemQtyUpdateDto)
+        {
+            try
+            {
+                var jsonRequest = JsonConvert.SerializeObject(cartItemQtyUpdateDto);
+                var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
+
+                var respone = await httpClient.PatchAsync($"api/ShoppingCart/{cartItemQtyUpdateDto.CartItemId}", content);
+
+                if (respone.IsSuccessStatusCode)
+                {
+                    return await respone.Content.ReadFromJsonAsync<CartItemDto>();
+                }
+                return null;
+
+            }
+            catch (Exception ex)
+            {
+                //Log exception
+                throw;
+            }
+        }
     }
 }

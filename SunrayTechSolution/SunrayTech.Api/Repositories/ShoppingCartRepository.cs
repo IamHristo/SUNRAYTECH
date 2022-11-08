@@ -81,9 +81,18 @@ namespace SunrayTech.Api.Repositories
                           }).ToListAsync();
         }
 
-        public Task<CartItem> UpdateQty(int id, CartItemQtyUpdateDto cartItemQtyUpdateDto)
+        public async Task<CartItem> UpdateQty(int id, CartItemQtyUpdateDto cartItemQtyUpdateDto)
         {
-            throw new NotImplementedException();
+            var item = await sunrayTechDbContext.CartItems.FindAsync(id);
+
+            if (item != null)
+            {
+                item.Qty = cartItemQtyUpdateDto.Qty;
+                await sunrayTechDbContext.SaveChangesAsync();
+                return item;
+            }
+
+            return null;
         }
 
         private async Task<bool> CartItemExists(int cartId, int productId)

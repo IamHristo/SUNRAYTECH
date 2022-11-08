@@ -28,14 +28,14 @@ namespace SunrayTech.Api.Controllers
             {
                 var cartItems = await shoppingCartRepository.GetItems(userId);
 
-                if(cartItems == null)
+                if (cartItems == null)
                 {
                     return NoContent();
                 }
-                
+
                 var products = await productRepository.GetItems();
 
-                if(products == null)
+                if (products == null)
                 {
                     throw new Exception("No products exist in the system");
                 }
@@ -85,14 +85,14 @@ namespace SunrayTech.Api.Controllers
             {
                 var newCartItem = await shoppingCartRepository.AddItem(cartItemToAddDto);
 
-                if(newCartItem == null)
+                if (newCartItem == null)
                 {
                     return NoContent();
                 }
 
                 var product = await productRepository.GetItem(newCartItem.ProductId);
 
-                if(product == null)
+                if (product == null)
                 {
                     throw new Exception($"Something went wrong when attempting to retrieve product (productId:{cartItemToAddDto.ProductId}");
                 }
@@ -134,6 +134,31 @@ namespace SunrayTech.Api.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
+        }
+
+        [HttpPatch("{id:int}")]
+        public async Task<ActionResult<CartItemDto>> UpdateQty(int id, CartItemQtyUpdateDto cartItemQtyUpdatedDto){
+
+            try
+            {
+                var cartItem = await shoppingCartRepository.UpdateQty(id, cartItemQtyUpdatedDto);
+
+                if(cartItem == null)
+                {
+                    return NotFound();
+                }
+
+                var product = await productRepository.GetItem(cartItem.ProductId);
+
+                var cartItemDto = cartItem.ConvertToDto(product);
+
+                return Ok(cartItemDto);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
         }
     }
 }
