@@ -56,8 +56,9 @@ namespace SunrayTech.Api.Extensions
                         ProductImageURL = product.ImageURL,
                         Price = product.Price,
                         CartId = cartItem.CartId,
-                        Qty = product.Qty,
-                        TotalPrice = product.Price * product.Qty
+                        AavailableQty = product.Qty,
+                        Qty = cartItem.Qty,
+                        TotalPrice = product.Price * cartItem.Qty
                     }).ToList();
         }
 
@@ -73,8 +74,8 @@ namespace SunrayTech.Api.Extensions
                         ProductImageURL = product.ImageURL,
                         Price = product.Price,
                         CartId = cartItem.CartId,
-                        Qty = product.Qty,
-                        TotalPrice = product.Price * product.Qty
+                        Qty = cartItem.Qty,
+                        TotalPrice = product.Price * cartItem.Qty
                     };
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SunrayTech.Models.Dtos;
 using SunrayTech.Web.Services.Contracts;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
@@ -49,6 +50,7 @@ namespace SunrayTech.Web.Services
         {
             try
             {
+                
                 var response = await httpClient.GetAsync($"api/ShoppingCart/{userId}/GetItems");
 
                 if (response.IsSuccessStatusCode)

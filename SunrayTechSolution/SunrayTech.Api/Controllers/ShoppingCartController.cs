@@ -4,6 +4,7 @@ using SunrayTech.Api.Entities;
 using SunrayTech.Api.Extensions;
 using SunrayTech.Api.Repositories.Contracts;
 using SunrayTech.Models.Dtos;
+using System.Collections.ObjectModel;
 
 namespace SunrayTech.Api.Controllers
 {
@@ -22,10 +23,11 @@ namespace SunrayTech.Api.Controllers
 
         [HttpGet]
         [Route("{userId}/GetItems")]
-        public async Task<ActionResult<IEnumerable<CartItemDto>>> GetItems(int userId)
+        public async Task<ActionResult<List<CartItemDto>>> GetItems(int userId)
         {
             try
             {
+                System.Threading.Thread.Sleep(2000);
                 var cartItems = await shoppingCartRepository.GetItems(userId);
 
                 if (cartItems == null)

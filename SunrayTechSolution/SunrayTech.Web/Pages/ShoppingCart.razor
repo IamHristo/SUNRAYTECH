@@ -25,11 +25,17 @@ else{
                             <h5>@item.ProductName</h5>
                             <div class="mb-4">@item.ProductDescription</div>
                             <span>Price : <b>@item.Price.ToString("C")</b></span>
-                            <input type="number" @bind="@item.Qty"/>
-                            <button class="btn btn-info btn-sm" 
-                                @onclick="(() => UpdateQtyCartItem_Click(item.Id,item.Qty))" >
-                                Update Qty
-                            </button>
+                            @*UpdateItemTotalPrice(new CartItemDto() {Id=item.Id});*@
+                            <select value="@item.Qty"
+                            @onchange="@((e) => { item.Qty = Convert.ToInt32(e.Value.ToString());
+                                CalculateCartSummaryTotals();  })" 
+                                class="form-control">
+                                @for(int i=1;i<=@item.AavailableQty;i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            </select>
+
                         </div>
                         <div class="col-md-8">
                             <button @onclick="(() => RemoveFromCart_Click(item.Id))"
@@ -42,13 +48,20 @@ else{
 
             </div>
             <div class="col-md-3">
-                <h5>Cart Summary</h5>
-                <div class="mt-2">
-                    <div>Total - </div>
-                    <a href="#" class="btn btn-success">
-                        <span class="oi oi-credit-card"></span>&nbsp; Proceed to Checkout
-                    </a>
-                </div>
+                @if (CartSummaryLoading == true)
+                {
+                    <DisplaySpinner></DisplaySpinner>
+                }
+                else
+                {
+                    <h5>Cart Summary</h5>
+                    <div class="mt-2">
+                        <div>Total - (@TotalQty items)&nbsp;<b>@TotalPrice</b></div>
+                        <a href="#" class="btn btn-success">
+                            <span class="oi oi-credit-card"></span>&nbsp; Proceed to Checkout
+                        </a>
+                    </div>
+                }
             </div>
         </div>
     }

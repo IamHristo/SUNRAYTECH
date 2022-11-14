@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Components;
 using SunrayTech.Models.Dtos;
 using SunrayTech.Web.Services.Contracts;
+using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace SunrayTech.Web.Pages
 {
@@ -16,11 +20,19 @@ namespace SunrayTech.Web.Pages
 
         public string ErrorMessage { get; set; }
 
+        public string TotalPrice { get; set; }
+
+        public int TotalQty { get; set; }
+
+        public bool CartSummaryLoading { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             try
             {
                 ShoppingCartItems = await ShoppingCartService.GetItems(HardCoded.UserId);
+
+                CalculateCartSummaryTotals();
             }
             catch (Exception ex)
             {
@@ -32,9 +44,10 @@ namespace SunrayTech.Web.Pages
         {
             try
             {
-                var cartItemDto = await ShoppingCartService.DeleteItem(id);
+                //var cartItemDto = await ShoppingCartService.DeleteItem(id);
 
                 RemoveCartItem(id);
+                CalculateCartSummaryTotals();
             }
             catch (Exception)
             {
@@ -57,6 +70,9 @@ namespace SunrayTech.Web.Pages
 
                     var returntedUpdatedItemDto = await ShoppingCartService.UpdateQty(updateItemDto);
 
+                    UpdateItemTotalPrice(returntedUpdatedItemDto);
+
+                    CalculateCartSummaryTotals();
                 }
                 else
                 {
@@ -86,5 +102,30 @@ namespace SunrayTech.Web.Pages
             ShoppingCartItems.Remove(cartItemDto);
         }
 
+        private void CalculateCartSummaryTotals()
+        {
+            SetTotalPrice();
+            SetTotalQty();
+        }
+
+        private void SetTotalPrice()
+        {
+            TotalPrice = ShoppingCartItems.Sum(x => x.TotalPrice).ToString("C");
+        }
+
+        private void SetTotalQty()
+        {
+            TotalQty = ShoppingCartItems.Select(x => x.Qty).Sum();
+        }
+
+        private void UpdateItemTotalPrice(CartItemDto cartItemDto)
+        {
+            var item = GetCartItem(cartItemDto.Id);
+
+            if(item != null)
+            {
+                item.TotalPrice = item.Price * item.Qty;
+            }
+        }
     }
 }
