@@ -22,12 +22,30 @@ namespace SunrayTech.Web.Pages
     {
         [Inject]
         public IProductService ProductService { get; set; }
+        
+        [Inject]
+        public IShoppingCartService ShoppingCartService { get; set; }
+
 
         public IEnumerable<ProductDto> ProductsDto { get; set; }
 
+        public string ErrorMessage { get; set; } = "";
+
         protected override async Task OnInitializedAsync()
         {
-            ProductsDto = await ProductService.GetItems();
+            try
+            {
+                ProductsDto = await ProductService.GetItems();
+
+                var shoppinCartItems = await ShoppingCartService.GetItems(HardCoded.UserId);
+                var totalQty = shoppinCartItems.Sum(x => x.Qty);
+
+                ShoppingCartService.RaiseEventOnShoppinCartChanged(totalQty);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
         }
 
         protected IOrderedEnumerable<IGrouping<int, ProductDto>> GetGroupedProductsByCategory()

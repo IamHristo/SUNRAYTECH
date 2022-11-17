@@ -23,15 +23,7 @@ namespace SunrayTech.Models.Dtos
         public decimal Price { get; set; }
         public decimal TotalPrice { get; set; }
         public int AavailableQty { get; set; }
-        public int Qty
-        {
-            get => qty;
-            set
-            {
-                qty = value;
-                TotalPrice = Price * Qty;
-            }
-        }
+        public int Qty { get; set; }
 
     }
 }

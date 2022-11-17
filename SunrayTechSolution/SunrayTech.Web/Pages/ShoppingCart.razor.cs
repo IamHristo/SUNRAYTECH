@@ -32,7 +32,7 @@ namespace SunrayTech.Web.Pages
             {
                 ShoppingCartItems = await ShoppingCartService.GetItems(HardCoded.UserId);
 
-                CalculateCartSummaryTotals();
+                CartChange();
             }
             catch (Exception ex)
             {
@@ -47,7 +47,7 @@ namespace SunrayTech.Web.Pages
                 //var cartItemDto = await ShoppingCartService.DeleteItem(id);
 
                 RemoveCartItem(id);
-                CalculateCartSummaryTotals();
+                CartChange();
             }
             catch (Exception)
             {
@@ -72,7 +72,7 @@ namespace SunrayTech.Web.Pages
 
                     UpdateItemTotalPrice(returntedUpdatedItemDto);
 
-                    CalculateCartSummaryTotals();
+                    CartChange();
                 }
                 else
                 {
@@ -126,6 +126,12 @@ namespace SunrayTech.Web.Pages
             {
                 item.TotalPrice = item.Price * item.Qty;
             }
+        }
+
+        private void CartChange()
+        {
+            CalculateCartSummaryTotals();
+            ShoppingCartService.RaiseEventOnShoppinCartChanged(TotalQty);
         }
     }
 }

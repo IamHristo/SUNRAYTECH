@@ -28,8 +28,8 @@ else{
                             @*UpdateItemTotalPrice(new CartItemDto() {Id=item.Id});*@
                             <select value="@item.Qty"
                             @onchange="@((e) => { item.Qty = Convert.ToInt32(e.Value.ToString());
-                                CalculateCartSummaryTotals();  })" 
-                                class="form-control">
+                                CartChange();  })"
+                        class="form-control">
                                 @for(int i=1;i<=@item.AavailableQty;i++)
                                 {
                                     <option value="@i">@i</option>

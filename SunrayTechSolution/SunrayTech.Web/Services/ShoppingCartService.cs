@@ -13,6 +13,8 @@ namespace SunrayTech.Web.Services
     {
         private readonly HttpClient httpClient;
 
+        public event Action<int> OnShoppinCartChanged;
+
         public ShoppingCartService(HttpClient httpClient)
         {
             this.httpClient = httpClient;
@@ -113,6 +115,14 @@ namespace SunrayTech.Web.Services
             {
                 //Log exception
                 throw;
+            }
+        }
+
+        public void RaiseEventOnShoppinCartChanged(int totalQty)
+        {
+            if(OnShoppinCartChanged != null)
+            {
+                OnShoppinCartChanged.Invoke(totalQty);
             }
         }
     }
