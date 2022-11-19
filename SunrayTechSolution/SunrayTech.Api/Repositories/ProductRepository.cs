@@ -39,5 +39,12 @@ namespace SunrayTech.Api.Repositories
 
             return products;
         }
+
+        public async Task<IEnumerable<Product>> GetItemsByCategory(int id)
+        {
+            var productsByCategory = await sunrayTechDbContext.Products.Where(p => p.CategoryId == id).ToListAsync();
+
+            return productsByCategory;
+        }
     }
 }

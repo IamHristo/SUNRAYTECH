@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SunrayTech.Api.Data;
 
@@ -10,9 +11,10 @@ using SunrayTech.Api.Data;
 namespace SunrayTech.Api.Migrations
 {
     [DbContext(typeof(SunrayTechDbContext))]
-    partial class SunrayTechDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221119202222_AddProductCategoryIcons")]
+    partial class AddProductCategoryIcons
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

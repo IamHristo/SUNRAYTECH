@@ -24,7 +24,7 @@ namespace SunrayTech.Api.Controllers
             {
                 var products = await this.productRepository.GetItems();
                 var productCategories = await this.productRepository.GetCategories();
-                
+
 
                 if (products == null || productCategories == null)
                 {
@@ -68,5 +68,41 @@ namespace SunrayTech.Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieveing data from the database");
             }
         }
+
+        [HttpGet]
+        [Route(nameof(GetProductCategories))]
+        public async Task<ActionResult<IEnumerable<ProductCategoryDto>>> GetProductCategories()
+        {
+            try
+            {
+                var productCategories = await this.productRepository.GetCategories();
+
+                var productCategoriesDtos = productCategories.ConvertToDto();
+                return Ok(productCategoriesDtos);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieveing data from the database");
+            }
+        }
+
+        [HttpGet]
+        [Route("{categoryId}/GetItemsByCategory")]
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetItemsByCategory(int categoryId)
+        {
+            try
+            {
+                var products = await productRepository.GetItemsByCategory(categoryId);
+                var productCategories = await productRepository.GetCategories();
+                var productDtos = products.ConvertToDto(productCategories);
+
+                return Ok(productDtos);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieveing data from the database");
+            }    
+        }
+
     }
 }
