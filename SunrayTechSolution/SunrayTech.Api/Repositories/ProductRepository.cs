@@ -29,20 +29,20 @@ namespace SunrayTech.Api.Repositories
 
         public async Task<Product> GetItem(int id)
         {
-            var product = await sunrayTechDbContext.Products.FindAsync(id);
+            var product = await sunrayTechDbContext.Products.Include(p => p.ProductCategory).SingleOrDefaultAsync(p => p.Id == id);
             return product;
         }
 
         public async Task<IEnumerable<Product>> GetItems()
         {
-            var products = await sunrayTechDbContext.Products.ToListAsync();
+            var products = await sunrayTechDbContext.Products.Include(p => p.ProductCategory).ToListAsync();
 
             return products;
         }
 
         public async Task<IEnumerable<Product>> GetItemsByCategory(int id)
         {
-            var productsByCategory = await sunrayTechDbContext.Products.Where(p => p.CategoryId == id).ToListAsync();
+            var productsByCategory = await sunrayTechDbContext.Products.Include(p => p.ProductCategory).Where(p => p.Id == id).ToListAsync();
 
             return productsByCategory;
         }

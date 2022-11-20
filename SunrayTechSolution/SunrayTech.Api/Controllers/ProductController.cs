@@ -23,16 +23,14 @@ namespace SunrayTech.Api.Controllers
             try
             {
                 var products = await this.productRepository.GetItems();
-                var productCategories = await this.productRepository.GetCategories();
 
-
-                if (products == null || productCategories == null)
+                if (products == null)
                 {
                     return NotFound();
                 }
                 else
                 {
-                    var productDtos = products.ConvertToDto(productCategories);
+                    var productDtos = products.ConvertToDto();
 
                     return Ok(productDtos);
                 }
@@ -56,9 +54,7 @@ namespace SunrayTech.Api.Controllers
                 }
                 else
                 {
-                    var productCategory = await productRepository.GetCategory(id);
-
-                    var productDto = product.ConvertToDto(productCategory);
+                    var productDto = product.ConvertToDto();
 
                     return Ok(productDto);
                 }
@@ -93,8 +89,7 @@ namespace SunrayTech.Api.Controllers
             try
             {
                 var products = await productRepository.GetItemsByCategory(categoryId);
-                var productCategories = await productRepository.GetCategories();
-                var productDtos = products.ConvertToDto(productCategories);
+                var productDtos = products.ConvertToDto();
 
                 return Ok(productDtos);
             }
